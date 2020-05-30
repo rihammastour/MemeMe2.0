@@ -53,45 +53,50 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
    
+    // MARK: PICK AN IMAGE
+    
+    func pickAnImage(sourceType: UIImagePickerController.SourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    //to pick an image from UIImagePickerController()
+       func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+           if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+               imagePickerView.image = image
+               imagePickerControllerDidCancel(picker: picker)
+             }
+
+           shareButton.isEnabled = true
+           cancelButton.isEnabled = true
+       }
+       
+      //to dismiss UIImagePickerController()
+      private func imagePickerControllerDidCancel(picker: UIImagePickerController!) {
+          picker.dismiss(animated: true, completion: nil)
+      }
+
+    
+    
     // MARK: ALBUM
     
     //generate UIImagePickerController() from Album
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+          pickAnImage(sourceType: .photoLibrary)
     }
     
-    
-    //to pick an image from UIImagePickerController()
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imagePickerView.image = image
-            imagePickerControllerDidCancel(picker: picker)
-          }
-
-        shareButton.isEnabled = true
-        cancelButton.isEnabled = true
-    }
-    
-   //to dismiss UIImagePickerController()
-   private func imagePickerControllerDidCancel(picker: UIImagePickerController!) {
-       picker.dismiss(animated: true, completion: nil)
-   }
-
     
     //MARK: CAMERA
     
     //generate UIImagePickerController() from Camera
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
+        pickAnImage(sourceType: .camera)
     }
   
-    //MARK: TEXTFIELDS
+    
+    //MARK: TEXT FIELDS
     
     //Processing Text Field
     func editingTextField(textFieldToBeEdited: UITextField, direction: String) {
@@ -115,7 +120,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
     
+    
     //MARK: KEYBOARD
+    
     func subscribeToKeyboardNotifications() {
         //keyboardWillShow
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -197,6 +204,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
            present(activityController, animated: true, completion: nil)
            
     }
+    
     
     //MARK: CANCEL
     
