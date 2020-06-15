@@ -1,3 +1,3 @@
-# MemeMe1.0
+# MemeMe2.0
 ## Udacity Nanodegree Project
-iPhone app that enables the user to take a picture, add text, and share the created meme on Facebook, Twitter, SMS, or Email
+MemeMe is a meme-generating app that enables a user to attach a caption to a picture from their phone. After adding text to an image chosen from the Photo Album or Camera, the user can share it with friends. MemeMe also temporarily stores sent memes which users can browse in a table or a grid.
